@@ -97,6 +97,30 @@ struct RoundedRectTextView: View {
     }
 }
 
+struct RoundedTextView: View {
+    let text: String
+    
+    var body: some View {
+        Text(text)
+    }
+}
+
+struct ScoreText: View {
+    var score: Int
+    
+    var body: some View {
+        Text(String(score))
+    }
+}
+
+struct DateText: View {
+    var date: Date
+    
+    var body: some View {
+        Text(date, style: .time)
+    }
+}
+
 struct TextIView_Previews: PreviewProvider {
     static var previews: some View {
         VStack(spacing: 20.0) {
@@ -105,7 +129,10 @@ struct TextIView_Previews: PreviewProvider {
             SliderLabelText(text: "test")
             LabelText(text: "Score")
             RoundedRectTextView(text: "99")
+            RoundedTextView(text: "1")
             BodyText(text: "You scored 200 Points\n 🎉🎉🎉")
+            ScoreText(score: 459)
+            DateText(date: Date())
             ButtonText(text: "Start New Round")
         }
         .padding()
