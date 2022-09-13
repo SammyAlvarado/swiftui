@@ -102,6 +102,13 @@ struct RoundedTextView: View {
     
     var body: some View {
         Text(text)
+            .font(.title)
+            .foregroundColor(Color("TextColor"))
+            .frame(width: Constants.General.roundedViewLength, height: Constants.General.roundRectViewHeight)
+            .overlay(alignment: .center) {
+                Circle()
+                    .strokeBorder(Color("LeaderboardRowColor"), lineWidth: Constants.General.strokeWidth)
+            }
     }
 }
 
@@ -110,6 +117,10 @@ struct ScoreText: View {
     
     var body: some View {
         Text(String(score))
+            .bold()
+            .kerning(-0.2)
+            .foregroundColor(Color("TextColor"))
+            .font(.title3)
     }
 }
 
@@ -118,6 +129,10 @@ struct DateText: View {
     
     var body: some View {
         Text(date, style: .time)
+            .bold()
+            .kerning(-0.2)
+            .foregroundColor(Color("TextColor"))
+            .font(.title3)
     }
 }
 
