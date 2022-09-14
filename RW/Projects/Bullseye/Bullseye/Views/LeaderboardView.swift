@@ -9,7 +9,7 @@ import SwiftUI
 
 struct LeaderboardView: View {
     @Binding var leaderboardIsShowing: Bool
-//    @State private var leaderboardEntries: [LeaderboardEntry] = []
+    @Binding var game: Game
     
     var body: some View {
         ZStack {
@@ -17,7 +17,14 @@ struct LeaderboardView: View {
             VStack(spacing: 10) {
                 HeaderView(leaderboardIsShowing: $leaderboardIsShowing)
                 LabelView()
-                RowView(index: 1, score: 10, date: Date())
+                ScrollView {
+                    VStack {
+                        ForEach(game.leaderboardEntries.indices) { i in
+                            let leaderboardEntry = game.leaderboardEntries[i]
+                            RowView(index: i, score: leaderboardEntry.score, date: leaderboardEntry.date)
+                        }
+                    }
+                }
             }
         }
     }
@@ -65,6 +72,7 @@ struct HeaderView: View {
                     BigBoldText(text: "Leaderboard")
                 }
             }
+            .padding(.top)
             HStack {
                 Spacer()
                 Button(action: {
@@ -99,17 +107,18 @@ struct LabelView: View {
 
 struct LeaderboardView_Previews: PreviewProvider {
     static private var leaderboardIsShowing = Binding.constant(false)
+    static private var game = Binding.constant(Game(loadTestData: true))
     
     static var previews: some View {
-        LeaderboardView(leaderboardIsShowing: leaderboardIsShowing)
-        LeaderboardView(leaderboardIsShowing: leaderboardIsShowing)
-            .previewLayout(.fixed(width: 568, height: 320))
-
-
-        LeaderboardView(leaderboardIsShowing: leaderboardIsShowing)
-            .preferredColorScheme(.dark)
-        LeaderboardView(leaderboardIsShowing: leaderboardIsShowing)
-            .preferredColorScheme(.dark)
-            .previewLayout(.fixed(width: 568, height: 320))
+        LeaderboardView(leaderboardIsShowing: leaderboardIsShowing, game: game)
+//        LeaderboardView(leaderboardIsShowing: leaderboardIsShowing, game: game)
+//            .previewLayout(.fixed(width: 568, height: 320))
+//
+//
+//        LeaderboardView(leaderboardIsShowing: leaderboardIsShowing, game: game)
+//            .preferredColorScheme(.dark)
+//        LeaderboardView(leaderboardIsShowing: leaderboardIsShowing, game: game)
+//            .preferredColorScheme(.dark)
+//            .previewLayout(.fixed(width: 568, height: 320))
     }
 }
